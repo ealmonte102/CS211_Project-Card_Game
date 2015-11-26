@@ -1,21 +1,27 @@
 #include "Card.hpp"
-
 #include <iostream>
 
 using std::ostream;
 using std::string;
 
-Card::Card ( ) : suit (CLUB), rank (TWO), value (0), cardName (createCardName ( )) { }
+Card::Card ( ) : suit (CLUB), rank (TWO), value (0) {
+	createCardName ( );
+}
 
-Card::Card (int n) : suit (CLUB), rank (TWO), value (n), cardName (createCardName ( )) {
+Card::Card (int n) : suit (CLUB), rank (TWO), value (n) {
 	if (value < 0 || value > 51) {
 		value = 0;
 	}
+	createCardName ( );
 }
 
-Card::Card (Suits s, Ranks r) : suit (s), rank (r), value (13 * s + r + 1), cardName (createCardName ( )) { }
+Card::Card (Suits s, Ranks r) : suit (s), rank (r), value (13 * s + r + 1) {
+	createCardName();
+}
 
-Card::Card (Suits s, Ranks r, int v) : suit (s), rank (r), value (v) { }
+Card::Card (Suits s, Ranks r, int v) : suit (s), rank (r), value (v) {
+	createCardName ( );
+}
 
 Card::Suits Card::getSuit ( ) const {
 	return suit;
@@ -45,71 +51,70 @@ int Card::compareByValue (const Card& other) const {
 	return value - other.value;
 }
 
-std::string Card::createCardName ( ) {
-	string tempName = "";
+void Card::createCardName ( ) {
+	string cardName = "";
 	switch (rank) {
 		case TWO:
-			tempName += "Two";
+			cardName += "Two";
 			break;
 		case THREE:
-			tempName += "Three";
+			cardName += "Three";
 			break;
 		case FOUR:
-			tempName += "Four";
+			cardName += "Four";
 			break;
 		case FIVE:
-			tempName += "Five";
+			cardName += "Five";
 			break;
 		case SIX:
-			tempName += "Six";
+			cardName += "Six";
 			break;
 		case SEVEN:
-			tempName += "Seven";
+			cardName += "Seven";
 			break;
 		case EIGHT:
-			tempName += "Eight";
+			cardName += "Eight";
 			break;
 		case NINE:
-			tempName += "Nine";
+			cardName += "Nine";
 			break;
 		case TEN:
-			tempName += "Ten";
+			cardName += "Ten";
 			break;
 		case JACK:
-			tempName += "Jack";
+			cardName += "Jack";
 			break;
 		case QUEEN:
-			tempName += "Queen";
+			cardName += "Queen";
 			break;
 		case KING:
-			tempName += "King";
+			cardName += "King";
 			break;
 		case ACE:
-			tempName += "Ace";
+			cardName += "Ace";
 			break;
 		default:
-			tempName += "Joker";
+			cardName += "Joker";
 			break;
 	}
-	tempName += " of ";
+	cardName += " of ";
 	switch (suit) {
 		case CLUB:
-			tempName += "Clubs";
+			cardName += "Clubs";
 			break;
 		case DIAMOND:
-			tempName += "Diamonds";
+			cardName += "Diamonds";
 			break;
 		case HEART:
-			tempName += "Hearts";
+			cardName += "Hearts";
 			break;
 		case SPADE:
-			tempName += "Spades";
+			cardName += "Spades";
 			break;
 		default:
-			tempName = "Jokers";
+			cardName = "Jokers";
 			break;
 	}
-	return tempName;
 }
 
 ostream& operator<<(ostream& output, const Card& currentCard) {

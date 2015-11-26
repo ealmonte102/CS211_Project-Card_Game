@@ -37,12 +37,12 @@ public:
 	friend std::ostream& operator<<(std::ostream& output, const Card& currentCard);
 
 private:
-	std::string createCardName ( );
+	void createCardName ( );
 
 	Suits suit;
 	Ranks rank;
 	int value;
-	const std::string cardName;
+	std::string cardName;
 };
 
 #endif
