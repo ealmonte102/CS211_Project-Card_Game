@@ -52,7 +52,6 @@ int Card::compareByValue (const Card& other) const {
 }
 
 void Card::createCardName ( ) {
-	string cardName = "";
 	switch (rank) {
 		case TWO:
 			cardName += "Two";
