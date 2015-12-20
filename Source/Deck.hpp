@@ -14,7 +14,7 @@ public:
 
 	Deck (const Deck& otherDeck);
 
-	Card* deal ( );
+	Card* deal ( ) const;
 
 	int getCount ( ) const;
 
@@ -28,7 +28,7 @@ public:
 
 private:
 	const static int NUM_OF_SHUFFLES;
-	Stack* deck;
+	Stack<Card>* deck;
 };
 
 #endif

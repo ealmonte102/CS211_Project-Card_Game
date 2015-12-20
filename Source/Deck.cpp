@@ -10,9 +10,11 @@ using std::ostream;
 const int Deck::NUM_OF_SHUFFLES = 100000;
 
 Deck::Deck ( ) {
-	deck = new Stack ( );
-	for (int suit = Card::CLUB; suit <= Card::SPADE; ++suit) {
-		for (int rank = Card::TWO; rank <= Card::ACE; ++rank) {
+	deck = new Stack<Card>;
+	int cap = deck->getTotalCapacity ( );
+	int count = 0;
+	for (int suit = Card::CLUB; suit <= Card::SPADE && count != cap; ++suit) {
+		for (int rank = Card::TWO; rank <= Card::ACE && count != cap; ++rank, count++) {
 			deck->push (new Card (static_cast<Card::Suits>(suit),
 								  static_cast<Card::Ranks>(rank)));
 		}
@@ -21,9 +23,9 @@ Deck::Deck ( ) {
 
 Deck::Deck (int sizeOfDeck) {
 	if (sizeOfDeck <= 0) {
-		sizeOfDeck = 26;
+		sizeOfDeck = 13;
 	}
-	deck = new Stack (sizeOfDeck);
+	deck = new Stack<Card> (sizeOfDeck);
 	for (int count = 0, suit = Card::CLUB; suit <= Card::SPADE && count < sizeOfDeck;) {
 		for (int rank = Card::TWO; rank <= Card::ACE && count < sizeOfDeck; ++count) {
 			deck->push (new Card (static_cast<Card::Suits>(suit), static_cast<Card::Ranks>(rank)));
@@ -37,14 +39,14 @@ Deck::Deck (int sizeOfDeck) {
 }
 
 Deck::Deck (const Deck& otherDeck) {
-	deck = new Stack (*otherDeck.deck);
+	deck = new Stack<Card> (*otherDeck.deck);
 }
 
 Deck::~Deck ( ) {
 	delete deck;
 }
 
-Card* Deck::deal ( ) {
+Card* Deck::deal ( ) const {
 	return deck->pop ( );
 }
 
@@ -69,12 +71,13 @@ void Deck::shuffle ( ) {
 	for (int i = 0; i < sizeOfDeck; i++) {
 		deck->push (randomCards[i]);
 	}
+	delete[] randomCards;
 }
 
 Deck& Deck::operator =(const Deck& rhs) {
 	if (this != &rhs) {
 		delete deck;
-		deck = new Stack (*rhs.deck);
+		deck = new Stack<Card> (*rhs.deck);
 	}
 	return *this;
 }
