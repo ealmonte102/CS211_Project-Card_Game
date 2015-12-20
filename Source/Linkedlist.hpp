@@ -209,8 +209,11 @@ bool LinkedList<Type>::remove(Type data) {
 	if (current == nullptr) { return false; }	// If current is null, the parameter pass was not found.
 	if (current == head) { head = head->next; } // Update the head if node found is at the head.
 	if (current == tail) { tail = previous; }	// Update the tail if the node found is at the tail.
-	previous->next = current->next;				// Update the previous nodes next.
+	if (previous != nullptr) {
+		previous->next = current->next;			// Update the previous nodes next.
+	}
 	delete current;								// Delete the node found.
+	--size;
 	return true;
 }
 
