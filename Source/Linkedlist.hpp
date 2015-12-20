@@ -68,18 +68,19 @@ template <class Type>
 LinkedList<Type>::LinkedList( ) : head(nullptr), tail(nullptr), size(0) { }
 
 template <class Type>
-LinkedList<Type>::LinkedList(const LinkedList& rhs) : size(0) {
-	head = new Node(*rhs.head->data);
-	tail = head;
-	++size;
-	Node* current = head;
-	Node* rhsCurrent = rhs.head->next;
-	while (rhsCurrent != nullptr) {
-		current->next = new Node(*rhsCurrent->data);
+LinkedList<Type>::LinkedList(const LinkedList& rhs) : head(nullptr), tail(nullptr), size(0) {
+	if (rhs.head != nullptr) {
+		head = new Node (rhs.head->data);
 		++size;
-		current = current->next;
+		Node* current = head;
+		Node* rhsCurrent = rhs.head->next;
+		while (rhsCurrent != nullptr) {
+			current->next = new Node (*rhsCurrent->data);
+			++size;
+			current = current->next;
+			rhsCurrent = rhsCurrent->next;
+		}
 		tail = current;
-		rhsCurrent = rhsCurrent->next;
 	}
 }
 
@@ -97,9 +98,10 @@ LinkedList<Type>::~LinkedList( ) {
 template <class Type>
 void LinkedList<Type>::appendToHead(Type* data) {
 	head = new Node(data, head);
-	if (size++ == 0) {
+	if (size == 0) {
 		tail = head;
 	}
+	size++;
 }
 
 template <class Type>
@@ -118,13 +120,17 @@ void LinkedList<Type>::appendAtIndex(Type* data, int index) {
 	if (index < 0 || index > size) {
 		return;
 	}
-	if (index == 0) { appendAtHead (data); }
-	if (index == size) { append (data); }
-
+	if (index == 0) {
+		appendAtHead (data);
+		return;
+	}
+	if (index == size - 1) {
+		append (data);
+		return;
+	}
 	Node* current = head;
-	for (int i = 0; i < index - 1; ++i) {
+	for (int i = 0; i < index; ++i) {
 		current = current->next;
-		--index;
 	}
 	current->next = new Node(data, current->next);
 	++size;
@@ -194,29 +200,18 @@ bool LinkedList<Type>::remove(Type data) {
 	if (head == nullptr) {
 		return false;
 	}
-	Node* previous = head;
+	Node* previous = nullptr;
 	Node* current = head;
 	while (current != nullptr && data != *current->data) {
 		previous = current;
 		current = current->next;
 	}
-	if (current != nullptr) {
-		//If there is only 1 node in the list, remove the references.
-		if (size == 1) {
-			head = nullptr;
-			tail == nullptr;
-		} else if (current == head) {
-			//Update the head if it is the found node.
-			head = head->next;
-		} else if (current == tail) {
-			//Update the tail if it is the found node.
-			tail = previous;
-		}
-		previous->next = current->next;
-		delete current->data;
-		delete current;
-		--size;
-	}
+	if (current == nullptr) { return false; }	// If current is null, the parameter pass was not found.
+	if (current == head) { head = head->next; } // Update the head if node found is at the head.
+	if (current == tail) { tail = previous; }	// Update the tail if the node found is at the tail.
+	previous->next = current->next;				// Update the previous nodes next.
+	delete current;								// Delete the node found.
+	return true;
 }
 
 template <class Type>
@@ -228,17 +223,21 @@ LinkedList<Type>& LinkedList<Type>::operator=(const LinkedList& rhs) {
 			head = temp;
 		}
 
-		head = new Node(*rhs.head->data);
-		tail = head;
-		size = 1;
-		Node* current = head;
-		Node* rhsCurrent = rhs.head->next;
-		while (rhsCurrent != nullptr) {
-			current->next = new Node(*rhsCurrent->data);
+		head = nullptr;
+		tail = nullptr;
+		size = 0;
+		if (rhs.head != nullptr) {
+			head = new Node (rhs.head->data);
 			++size;
-			current = current->next;
+			Node* current = head;
+			Node* rhsCurrent = rhs.head->next;
+			while (rhsCurrent != nullptr) {
+				current->next = new Node (*rhsCurrent->data);
+				++size;
+				current = current->next;
+				rhsCurrent = rhsCurrent->next;
+			}
 			tail = current;
-			rhsCurrent = rhsCurrent->next;
 		}
 	}
 	return *this;
