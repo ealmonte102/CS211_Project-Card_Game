@@ -51,7 +51,6 @@ protected:
 		Node (Type data);
 		Node (Type data, Node* next);
 	};
-private:
 	Node* head;
 	Node* tail;
 	int size;
