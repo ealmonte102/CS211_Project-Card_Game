@@ -54,31 +54,31 @@ int Card::compareByValue (const Card& other) const {
 void Card::createCardName ( ) {
 	switch (rank) {
 		case TWO:
-			cardName += "Two";
+			cardName += "2";
 			break;
 		case THREE:
-			cardName += "Three";
+			cardName += "3";
 			break;
 		case FOUR:
-			cardName += "Four";
+			cardName += "4";
 			break;
 		case FIVE:
-			cardName += "Five";
+			cardName += "5";
 			break;
 		case SIX:
-			cardName += "Six";
+			cardName += "6";
 			break;
 		case SEVEN:
-			cardName += "Seven";
+			cardName += "7";
 			break;
 		case EIGHT:
-			cardName += "Eight";
+			cardName += "8";
 			break;
 		case NINE:
-			cardName += "Nine";
+			cardName += "9";
 			break;
 		case TEN:
-			cardName += "Ten";
+			cardName += "10";
 			break;
 		case JACK:
 			cardName += "Jack";
@@ -96,22 +96,22 @@ void Card::createCardName ( ) {
 			cardName += "Joker";
 			break;
 	}
-	cardName += " of ";
+	cardName += " ";
 	switch (suit) {
 		case CLUB:
-			cardName += "Clubs";
+			cardName += '\6';
 			break;
 		case DIAMOND:
-			cardName += "Diamonds";
+			cardName += '\4';
 			break;
 		case HEART:
-			cardName += "Hearts";
+			cardName += '\3';
 			break;
 		case SPADE:
-			cardName += "Spades";
+			cardName += '\5';
 			break;
 		default:
-			cardName = "Jokers";
+			cardName = "?";
 			break;
 	}
 }
