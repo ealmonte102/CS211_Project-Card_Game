@@ -12,19 +12,19 @@ public:
 
 	~LinkedList( );
 
-	void appendToHead(Type* data);
+	void appendToHead(Type data);
 
-	void append(Type* data);
+	void append(Type data);
 
-	void appendAtIndex(Type* data, int index);
+	void appendAtIndex(Type data, int index);
 
-	Type* dataAtHead( ) const;
+	Type dataAtHead( ) const;
 
-	Type* dataAtTail( ) const;
+	Type dataAtTail( ) const;
 
-	Type* dataAtIndex(int index) const;
+	Type dataAtIndex(int index) const;
 
-	void insert(Type* data);
+	void insert(Type data);
 
 	int getSize( ) const;
 
@@ -46,11 +46,11 @@ public:
 
 private:
 	struct Node {
-		Type* data;
+		Type data;
 		Node* next;
 
-		Node(Type* data);
-		Node(Type* data, Node* next);
+		Node(Type data);
+		Node(Type data, Node* next);
 	};
 
 	Node* head;
@@ -59,10 +59,10 @@ private:
 };
 
 template <class Type>
-LinkedList<Type>::Node::Node(Type* data) : data(data), next(nullptr) { }
+LinkedList<Type>::Node::Node(Type data) : data(data), next(nullptr) { }
 
 template <class Type>
-LinkedList<Type>::Node::Node(Type* data, Node* next) : data(data), next(next) { }
+LinkedList<Type>::Node::Node(Type data, Node* next) : data(data), next(next) { }
 
 template <class Type>
 LinkedList<Type>::LinkedList( ) : head(nullptr), tail(nullptr), size(0) { }
@@ -96,7 +96,7 @@ LinkedList<Type>::~LinkedList( ) {
 }
 
 template <class Type>
-void LinkedList<Type>::appendToHead(Type* data) {
+void LinkedList<Type>::appendToHead(Type data) {
 	head = new Node(data, head);
 	if (size == 0) {
 		tail = head;
@@ -105,7 +105,7 @@ void LinkedList<Type>::appendToHead(Type* data) {
 }
 
 template <class Type>
-void LinkedList<Type>::append(Type* data) {
+void LinkedList<Type>::append(Type data) {
 	if (size != 0) {
 		tail->next = new Node(data);
 		tail = tail->next;
@@ -116,7 +116,7 @@ void LinkedList<Type>::append(Type* data) {
 }
 
 template <class Type>
-void LinkedList<Type>::appendAtIndex(Type* data, int index) {
+void LinkedList<Type>::appendAtIndex(Type data, int index) {
 	if (index < 0 || index > size) {
 		return;
 	}
@@ -137,7 +137,7 @@ void LinkedList<Type>::appendAtIndex(Type* data, int index) {
 }
 
 template <class Type>
-Type* LinkedList<Type>::dataAtHead( ) const {
+Type LinkedList<Type>::dataAtHead( ) const {
 	if(head != nullptr) {
 		return head->data;
 	}
@@ -145,7 +145,7 @@ Type* LinkedList<Type>::dataAtHead( ) const {
 }
 
 template <class Type>
-Type* LinkedList<Type>::dataAtTail( ) const {
+Type LinkedList<Type>::dataAtTail( ) const {
 	if (tail != nullptr) {
 		return tail->data;
 	}
@@ -153,7 +153,7 @@ Type* LinkedList<Type>::dataAtTail( ) const {
 }
 
 template <class Type>
-Type* LinkedList<Type>::dataAtIndex(int index) const {
+Type LinkedList<Type>::dataAtIndex(int index) const {
 	if (index >= 0 || index < size) {
 		if (index == 0) { return head->data; }
 		if (index == size - 1) { return tail->data; }
@@ -169,7 +169,7 @@ Type* LinkedList<Type>::dataAtIndex(int index) const {
 }
 
 template <class Type>
-void LinkedList<Type>::insert(Type* data) {
+void LinkedList<Type>::insert(Type data) {
 	if (head == nullptr) {
 		head = new Node(data);
 		tail = head;
