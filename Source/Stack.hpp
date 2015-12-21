@@ -77,7 +77,7 @@ public:
 	}
 
 	friend std::ostream& operator<<(std::ostream& output, const Stack& currentStack) {
-		for (int i = 0; i < currentStack.size; ++i) {
+		for (int i = currentStack.size - 1; i >= 0; --i) {
 			output << *currentStack.stack[i] << "\n";
 		}
 		return output;
