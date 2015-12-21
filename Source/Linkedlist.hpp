@@ -43,16 +43,15 @@ public:
 		}
 		return output;
 	}
-
-private:
+protected:
 	struct Node {
 		Type data;
 		Node* next;
 
-		Node(Type data);
-		Node(Type data, Node* next);
+		Node (Type data);
+		Node (Type data, Node* next);
 	};
-
+private:
 	Node* head;
 	Node* tail;
 	int size;
