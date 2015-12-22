@@ -4,7 +4,7 @@
 #include "Linkedlist.hpp"
 
 class Card;
-class Hand : public LinkedList<Card> {
+class Hand : public LinkedList<Card*> {
 public:
 	Hand ( );
 	// Returns 1 for every group of 4 cards that are the same.
