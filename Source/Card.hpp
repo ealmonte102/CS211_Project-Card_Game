@@ -36,6 +36,16 @@ public:
 
 	friend std::ostream& operator<<(std::ostream& output, const Card& currentCard);
 
+	bool operator==(const Card& rhs) const;
+
+	bool operator<(const Card& rhs) const;
+
+	bool operator<=(const Card& rhs) const;
+
+	bool operator>(const Card& rhs) const;
+
+	bool operator>=(const Card& rhs) const;
+
 private:
 	void createCardName ( );
 

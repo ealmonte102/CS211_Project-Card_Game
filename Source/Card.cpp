@@ -51,6 +51,22 @@ int Card::compareByValue (const Card& other) const {
 	return value - other.value;
 }
 
+bool Card::operator==(const Card& rhs) const {
+	return rank == rhs.rank;
+}
+bool Card::operator<(const Card& rhs) const {
+	return rank < rhs.rank;
+}
+bool Card::operator<=(const Card& rhs) const {
+	return !operator>(rhs);
+}
+bool Card::operator>(const Card& rhs) const {
+	return rank > rhs.rank;
+}
+bool Card::operator>=(const Card& rhs) const {
+	return !operator<(rhs);
+}
+
 void Card::createCardName ( ) {
 	switch (rank) {
 		case TWO:
