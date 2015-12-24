@@ -73,7 +73,7 @@ LinkedList<Type>::LinkedList(const LinkedList& rhs) : head(nullptr), tail(nullpt
 		Node* current = head;
 		Node* rhsCurrent = rhs.head->next;
 		while (rhsCurrent != nullptr) {
-			current->next = new Node (*rhsCurrent->data);
+			current->next = new Node (rhsCurrent->data);
 			++size;
 			current = current->next;
 			rhsCurrent = rhsCurrent->next;
@@ -115,7 +115,7 @@ void LinkedList<Type>::append(Type data) {
 
 template <class Type>
 void LinkedList<Type>::appendAtIndex(Type data, int index) {
-	if (index < 0 || index > size) {
+	if (index < 0 || index >= size) {
 		return;
 	}
 	if (index == 0) {
@@ -153,17 +153,16 @@ Type LinkedList<Type>::dataAtTail( ) const {
 template <class Type>
 Type LinkedList<Type>::dataAtIndex(int index) const {
 	if (index >= 0 || index < size) {
-		if (index == 0) { return head->data; }
-		if (index == size - 1) { return tail->data; }
+		if (index == 0) { return dataAtHead(); }
+		if (index == size - 1) { return dataAtTail(); }
 
 		Node* current = head;
 		for (int i = 0; i < index; ++i) {
 			current = current->next;
 		}
 		return current->data;
-	} else {
-		return nullptr;
 	}
+	return nullptr;
 }
 
 template <class Type>
@@ -233,7 +232,7 @@ LinkedList<Type>& LinkedList<Type>::operator=(const LinkedList& rhs) {
 			Node* current = head;
 			Node* rhsCurrent = rhs.head->next;
 			while (rhsCurrent != nullptr) {
-				current->next = new Node (*rhsCurrent->data);
+				current->next = new Node (rhsCurrent->data);
 				++size;
 				current = current->next;
 				rhsCurrent = rhsCurrent->next;
