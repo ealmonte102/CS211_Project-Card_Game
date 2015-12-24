@@ -2,8 +2,18 @@
 // Created by Evan Almonte
 //
 #include "Hand.hpp"
+#include "Card.hpp"
 
 Hand::Hand ( ) : LinkedList<Card*> ( ) {}
+
+int Hand::evaluate( ) {
+	Node* foundGroup = findGroup ( );
+	if(size > 3 && foundGroup != nullptr) {
+		removeGroup (foundGroup);
+		return 1 + evaluate ( );
+	}
+	return 0;
+}
 
 void Hand::removeGroup(Node* node) {
 	if (node == nullptr) { return; }
@@ -34,7 +44,7 @@ LinkedList<Card*>::Node* Hand::findGroup( ) const {
 	int groupCount = 1;
 	while(current->next != nullptr) 
 	{
-		if (startOfGroup->data == current->next->data) {
+		if (*startOfGroup->data == *current->next->data) {
 			groupCount++;
 			if (groupCount == 4) { return startOfGroup; }
 		} else {
