@@ -23,6 +23,8 @@ public:
 	Type dataAtTail( ) const;
 
 	Type dataAtIndex(int index) const;
+	
+	bool find (Type data) const;
 
 	void insert(Type data);
 
@@ -163,6 +165,19 @@ Type LinkedList<Type>::dataAtIndex(int index) const {
 		return current->data;
 	}
 	return nullptr;
+}
+
+template <class Type>
+bool LinkedList<Type>::find(Type data) const {
+	if (head == nullptr) { return false; }
+	Node* current = head;
+	while(current != nullptr) {
+		if(*current->data == data) {
+			return true;
+		}
+		current = current->next;
+	}
+	return false;
 }
 
 template <class Type>
