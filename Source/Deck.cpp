@@ -54,7 +54,7 @@ int Deck::getCount ( ) const {
 	return deck->getSize ( );
 }
 
-void Deck::shuffle ( ) {
+void Deck::shuffle ( ) const {
 	int sizeOfDeck = getCount ( );
 	Card** randomCards = new Card*[sizeOfDeck];
 	for (int i = 0; i < sizeOfDeck; ++i) {

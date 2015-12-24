@@ -1,11 +1,10 @@
 #ifndef DECK_HPP
 #define DECK_HPP
 
-#include <iostream>
-
-#include "Card.hpp"
 #include "Stack.hpp"
+#include <iosfwd>
 
+class Card;
 class Deck {
 public:
 	Deck ( );
@@ -18,7 +17,7 @@ public:
 
 	int getCount ( ) const;
 
-	void shuffle ( );
+	void shuffle ( ) const;
 
 	friend std::ostream& operator<<(std::ostream&, const Deck&);
 
