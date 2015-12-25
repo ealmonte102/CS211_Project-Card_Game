@@ -24,7 +24,7 @@ public:
 
 	Type dataAtIndex(int index) const;
 	
-	bool find (Type data) const;
+	Type find (Type data) const;
 
 	void insert(Type data);
 
@@ -168,16 +168,16 @@ Type LinkedList<Type>::dataAtIndex(int index) const {
 }
 
 template <class Type>
-bool LinkedList<Type>::find(Type data) const {
-	if (head == nullptr) { return false; }
+Type LinkedList<Type>::find(Type data) const {
+	if (head == nullptr) { return nullptr; }
 	Node* current = head;
 	while(current != nullptr) {
 		if(*current->data == data) {
-			return true;
+			return current->data;
 		}
 		current = current->next;
 	}
-	return false;
+	return nullptr;
 }
 
 template <class Type>
@@ -214,7 +214,7 @@ bool LinkedList<Type>::remove(Type data) {
 	}
 	Node* previous = nullptr;
 	Node* current = head;
-	while (current != nullptr && data != *current->data) {
+	while (current != nullptr && data != current->data) {
 		previous = current;
 		current = current->next;
 	}
