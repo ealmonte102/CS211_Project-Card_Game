@@ -7,6 +7,8 @@
 
 using std::cout;
 
+Player::Player( ) : name(""), isCPU(false), score(0) {}
+
 Player::Player(std::string name, bool isCPU) : name(name), isCPU(isCPU), score(0) {}
 
 int Player::getScore ( ) const { return score; }

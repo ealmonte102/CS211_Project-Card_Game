@@ -7,6 +7,7 @@
 class Card;
 class Player {
 public:
+	Player ( );
 	Player (std::string name, bool isCPU);
 	int getScore ( ) const;
 	std::string getName ( ) const;
