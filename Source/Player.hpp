@@ -3,7 +3,6 @@
 
 #include "Card.hpp"
 #include "Hand.hpp"
-#include <string>
 
 class Card;
 class Player {
@@ -13,8 +12,11 @@ public:
 	std::string getName ( ) const;
 	bool isHuman ( ) const;
 	void addCard (Card* cardToAdd);
-	bool askForCard (Player& otherPlayer, Card::Suits aSuit, Card::Ranks aRank);
+	//Returns -1 if card is not in calling objects hand, 0 if card is not in other players hand
+	//1 if card is in other players hand.
+	int askForCard (Player& otherPlayer, Card::Suits aSuit, Card::Ranks aRank);
 	void evaluateHand ( );
+	friend std::ostream& operator<<(std::ostream& output, const Player& aPlayer);
 private:
 	std::string name;
 	bool isCPU;
