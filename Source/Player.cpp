@@ -29,6 +29,8 @@ int Player::askForCard(Player& otherPlayer, Card::Suits aSuit, Card::Ranks aRank
 	return 1;
 }
 
+void Player::setName (std::string name) { this->name = name; }
+
 void Player::evaluateHand( ) {
 	score = playerHand.evaluate();
 }

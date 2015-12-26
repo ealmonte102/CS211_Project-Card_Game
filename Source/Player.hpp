@@ -16,6 +16,7 @@ public:
 	//Returns -1 if card is not in calling objects hand, 0 if card is not in other players hand
 	//1 if card is in other players hand.
 	int askForCard (Player& otherPlayer, Card::Suits aSuit, Card::Ranks aRank);
+	void setName (std::string name);
 	void evaluateHand ( );
 	friend std::ostream& operator<<(std::ostream& output, const Player& aPlayer);
 private:
