@@ -1,7 +1,7 @@
 #ifndef LINKEDLIST_HPP
 #define LINKEDLIST_HPP
 
-#include <iostream>
+#include <iosfwd>
 
 template <class Type>
 class LinkedList {
@@ -172,7 +172,7 @@ Type LinkedList<Type>::find(Type data) const {
 	if (head == nullptr) { return nullptr; }
 	Node* current = head;
 	while(current != nullptr) {
-		if(*current->data == data) {
+		if(*current->data == *data) {
 			return current->data;
 		}
 		current = current->next;
