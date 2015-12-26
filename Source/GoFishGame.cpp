@@ -7,6 +7,10 @@ using std::cout;
 using std::cin;
 using std::string;
 
+namespace GoFishGameUtils {
+	bool arePlayerHandsEmpty (const Player* const thePlayers, int size);
+}
+
 const int GoFishGame::defaultNumOfPlayers = 2;
 
 const int GoFishGame::startingHand = 5;
@@ -27,9 +31,13 @@ GoFishGame::~GoFishGame( ) {
 
 void GoFishGame::play( ) {
 	//Commented out, used for testing purposes.
+	/*
 	theDeck.shuffle ( );
 	initPlayers ( );
-	
+	displayPlayers ( );
+	while (theDeck.getCount ( ) != 0 || ! GoFishGameUtils::arePlayerHandsEmpty(thePlayers, numOfPlayers)) {
+	}
+	*/
 }
 
 void GoFishGame::displayPlayers( ) const {
@@ -53,5 +61,17 @@ void GoFishGame::initPlayerHands ( ) {
 		for (int j = 0; j < numOfPlayers; ++j) {
 			thePlayers[j].addCard (theDeck.deal ( ));
 		}
+	}
+}
+
+
+namespace GoFishGameUtils {
+	bool arePlayerHandsEmpty (const Player* const thePlayers, int size) {
+		for (int i = 0; i < size; ++i) {
+			if(! thePlayers[i].handIsEmpty()) {
+				return false;
+			}
+		}
+		return true;
 	}
 }
