@@ -27,13 +27,15 @@ GoFishGame::~GoFishGame( ) {
 
 void GoFishGame::play( ) {
 	//Commented out, used for testing purposes.
-	/*
 	theDeck.shuffle ( );
 	initPlayers ( );
+	
+}
+
+void GoFishGame::displayPlayers( ) const {
 	for (int i = 0; i < numOfPlayers; ++i) {
 		cout << thePlayers[i] << "\n";
 	}
-	*/
 }
 
 void GoFishGame::initPlayers( ) {

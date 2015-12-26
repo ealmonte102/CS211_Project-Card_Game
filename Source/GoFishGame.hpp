@@ -11,6 +11,7 @@ public:
 	~GoFishGame ( );
 	void play ( );
 private:
+	void displayPlayers ( ) const;
 	void initPlayers ( );
 	void initPlayerHands ( );
 	static const int startingHand;
