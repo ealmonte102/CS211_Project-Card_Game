@@ -17,6 +17,10 @@ std::string Player::getName ( ) const { return name; }
 
 bool Player::isHuman ( ) const { return !isCPU; }
 
+bool Player::handIsEmpty( ) const {
+	return playerHand.getSize ( ) == 0;
+}
+
 void Player::addCard (Card* cardToAdd) { playerHand.insert (cardToAdd); }
 
 int Player::askForCard(Player& otherPlayer, Card::Suits aSuit, Card::Ranks aRank) {
