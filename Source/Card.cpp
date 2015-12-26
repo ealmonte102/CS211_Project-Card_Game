@@ -1,5 +1,4 @@
 #include "Card.hpp"
-#include <iostream>
 
 using std::ostream;
 using std::string;

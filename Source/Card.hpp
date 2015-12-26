@@ -1,7 +1,7 @@
 #ifndef CARD_HPP
 #define CARD_HPP
 
-#include <iostream>
+#include <iosfwd>
 #include <string>
 
 class Card {
