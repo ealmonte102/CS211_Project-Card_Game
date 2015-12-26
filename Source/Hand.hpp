@@ -9,6 +9,8 @@ public:
 	Hand ( );
 	// Returns 1 for every group of 4 cards that are the same.
 	int evaluate ( );
+
+	friend std::ostream& operator<<(std::ostream& output, const Hand& aHand);
 private:
 	// Removes a group of 4 cards from the hand.
 	void removeGroup (Node* node);

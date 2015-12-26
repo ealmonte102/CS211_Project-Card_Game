@@ -3,6 +3,9 @@
 //
 #include "Hand.hpp"
 #include "Card.hpp"
+#include <iostream>
+
+using std::cout;
 
 Hand::Hand ( ) : LinkedList<Card*> ( ) {}
 
@@ -54,4 +57,16 @@ LinkedList<Card*>::Node* Hand::findGroup( ) const {
 		current = current->next;
 	}
 	return nullptr;
+}
+
+std::ostream& operator<<(std::ostream& output, const Hand& aHand) {
+	Hand::Node* current = aHand.head;
+	while(current != nullptr) {
+		cout << *current->data;
+		if(current->next != nullptr) {
+			cout << " | ";
+		}
+		current = current->next;
+	}
+	return output;
 }
