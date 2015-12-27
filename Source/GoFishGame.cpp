@@ -11,6 +11,7 @@ namespace GoFishGameUtils {
 	bool arePlayerHandsEmpty (const Player* const thePlayers, int size);
 	void displayOtherPlayers (const Player* const thePlayers, int size, int currentPlayer);
 	int choosePlayer (const Player* const thePlayers, int size, int currentIndex);
+	Card chooseCard ();
 }
 
 const int GoFishGame::defaultNumOfPlayers = 2;
@@ -40,14 +41,16 @@ void GoFishGame::play( ) {
 	while (theDeck.getCount ( ) != 0) {
 		for (int playerIndex = 0; playerIndex < numOfPlayers; ++playerIndex) {
 			system("cls");
-			cout << "It's your turn " << thePlayers[playerIndex].getName ( ) << "\n";
+			cout << thePlayers[playerIndex];
 			displayOtherPlayers(thePlayers, numOfPlayers, playerIndex);
 			cout << "Who would you like to take a card from?\n";
 			cout << "Please choose a player: ";
 			int playerChosen = choosePlayer (thePlayers, numOfPlayers, playerIndex);
 			cout << "You chose player #" << playerChosen + 1 
-				<< ": " + thePlayers[playerChosen].getName()
-				<< "What card would you like to take? ";
+				<< ": " + thePlayers[playerChosen].getName() + "\n"
+				<< "What card would you like to take?\n";
+			Card aCard = chooseCard ( );
+			cout << "You chose " << aCard << "\n";
 			system ("pause");
 		}
 	}
@@ -111,5 +114,44 @@ namespace GoFishGameUtils {
 			if (chosen - 1 == currentIndex) { return chosen; }
 		} while (chosen < 1 || chosen > size - 1);
 		return chosen - 1;
+	}
+
+	Card chooseCard( ) {
+		int suitChosen = 0, rankChosen = 0;
+		cout << "*************************\n";
+		cout << "   Please select a suit  \n";
+		cout << "*************************\n";
+			cout << "1) Clubs\n"
+			<< "2) Diamonds\n"
+			<< "3) Hearts\n"
+			<< "4) Spades\n";
+		while(! (cin >> suitChosen) || suitChosen < 1 || suitChosen > 4) {
+			cin.clear ( );
+			cin.ignore (10000, '\n');
+		}
+		cout << "*************************\n";
+		cout << "   Please select a rank  \n";
+		cout << "*************************\n";
+		cout << "Please select a rank:\n";
+		cout << "1) Two\n"
+			<< "2)  Three\n"
+			<< "3)  Four\n"
+			<< "4)  Five\n"
+			<< "5)  Six\n"
+			<< "6)  Seven\n"
+			<< "7)  Eight\n"
+			<< "8)  Nine\n"
+			<< "9) Ten\n"
+			<< "10) Jack\n"
+			<< "11) Queen\n"
+			<< "12) King\n"
+			<< "13) Ace\n";
+		while (!(cin >> rankChosen) || rankChosen < 1 || rankChosen > 13) {
+			cin.clear ( );
+			cin.ignore (10000, '\n');
+		}
+		Card::Suits suitAsEnum = static_cast<Card::Suits>(suitChosen - 1);
+		Card::Ranks rankAsEnum = static_cast<Card::Ranks>(rankChosen - 1);
+		return Card (suitAsEnum, rankAsEnum);
 	}
 }
