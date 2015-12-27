@@ -121,7 +121,7 @@ void LinkedList<Type>::appendAtIndex(Type data, int index) {
 		return;
 	}
 	if (index == 0) {
-		appendAtHead (data);
+		appendToHead (data);
 		return;
 	}
 	if (index == size - 1) {
