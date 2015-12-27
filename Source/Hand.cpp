@@ -47,7 +47,7 @@ LinkedList<Card*>::Node* Hand::findGroup( ) const {
 	int groupCount = 1;
 	while(current->next != nullptr) 
 	{
-		if (*startOfGroup->data == *current->next->data) {
+		if (startOfGroup->data->compareByRank(*current->next->data) == 0) {
 			groupCount++;
 			if (groupCount == 4) { return startOfGroup; }
 		} else {
