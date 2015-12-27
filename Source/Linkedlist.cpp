@@ -2,6 +2,7 @@
 // Created by Evan Almonte
 //  
 #include "Linkedlist.hpp"
+#include "Card.hpp"
 
 template <>
 inline void LinkedList<Card*>::insert (Card* data) {
