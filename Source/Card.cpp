@@ -51,15 +51,17 @@ int Card::compareByValue (const Card& other) const {
 }
 
 bool Card::operator==(const Card& rhs) const {
-	return rank == rhs.rank;
+	return rank == rhs.rank && suit == rhs.suit;
 }
 bool Card::operator<(const Card& rhs) const {
+	if (suit > rhs.suit) { return false; }
 	return rank < rhs.rank;
 }
 bool Card::operator<=(const Card& rhs) const {
 	return !operator>(rhs);
 }
 bool Card::operator>(const Card& rhs) const {
+	if (suit < rhs.suit) { return false; }
 	return rank > rhs.rank;
 }
 bool Card::operator>=(const Card& rhs) const {
