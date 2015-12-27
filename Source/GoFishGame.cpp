@@ -9,6 +9,8 @@ using std::string;
 
 namespace GoFishGameUtils {
 	bool arePlayerHandsEmpty (const Player* const thePlayers, int size);
+	void displayOtherPlayers (const Player* const thePlayers, int size, int currentPlayer);
+	int choosePlayer (const Player* const thePlayers, int size, int currentIndex);
 }
 
 const int GoFishGame::defaultNumOfPlayers = 2;
@@ -30,12 +32,27 @@ GoFishGame::~GoFishGame( ) {
 }
 
 void GoFishGame::play( ) {
+	using namespace GoFishGameUtils;
 	//Commented out, used for testing purposes.
 	/*
 	theDeck.shuffle ( );
 	initPlayers ( );
-	displayPlayers ( );
-	while (theDeck.getCount ( ) != 0 || ! GoFishGameUtils::arePlayerHandsEmpty(thePlayers, numOfPlayers)) {
+	while (theDeck.getCount ( ) != 0) {
+		for (int playerIndex = 0; playerIndex < numOfPlayers; ++playerIndex) {
+			system("cls");
+			cout << "It's your turn " << thePlayers[playerIndex].getName ( ) << "\n";
+			displayOtherPlayers(thePlayers, numOfPlayers, playerIndex);
+			cout << "Who would you like to take a card from?\n";
+			cout << "Please choose a player: ";
+			int playerChosen = choosePlayer (thePlayers, numOfPlayers, playerIndex);
+			cout << "You chose player #" << playerChosen + 1 
+				<< ": " + thePlayers[playerChosen].getName()
+				<< "What card would you like to take? ";
+			system ("pause");
+		}
+	}
+	while (! arePlayerHandsEmpty(thePlayers, numOfPlayers)) {
+		
 	}
 	*/
 }
@@ -73,5 +90,26 @@ namespace GoFishGameUtils {
 			}
 		}
 		return true;
+	}
+
+	void displayOtherPlayers(const Player* const thePlayers, int size, int currentPlayer) {
+		int count = 0;
+		for (int i = 0; i < size; ++i) {
+			if (i != currentPlayer) {
+				cout << ++count << ") " + thePlayers[i].getName ( ) + "\n";
+			}
+		}
+	}
+
+	int choosePlayer(const Player* const thePlayers, int size, int currentIndex) {
+		int chosen = 0;
+		do {
+			while (! (cin >> chosen)) {
+				cin.clear ( );
+				cin.ignore (10000, '\n');
+			}
+			if (chosen - 1 == currentIndex) { return chosen; }
+		} while (chosen < 1 || chosen > size - 1);
+		return chosen - 1;
 	}
 }
