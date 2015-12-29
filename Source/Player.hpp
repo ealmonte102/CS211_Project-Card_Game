@@ -20,7 +20,7 @@ public:
 	void addCard (Card* cardToAdd);
 	// Returns -1 if card is not in calling objects hand, 0 if card is not in other players hand
 	// 1 if card is in other players hand.
-	int askForCard (Player& otherPlayer, Card::Suits aSuit, Card::Ranks aRank);
+	bool askForCard (Player& otherPlayer, Card& aCard);
 	// Sets the player's name to the passed parameter.
 	void setName (std::string name);
 	// Evaluates the players hand adding 1 point to the score per 4 similar cards.

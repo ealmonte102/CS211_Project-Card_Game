@@ -23,14 +23,12 @@ bool Player::handIsEmpty( ) const {
 
 void Player::addCard (Card* cardToAdd) { playerHand.insert (cardToAdd); }
 
-int Player::askForCard(Player& otherPlayer, Card::Suits aSuit, Card::Ranks aRank) {
-	Card cardToFind (aSuit, aRank);
-	if (playerHand.find (&cardToFind) == nullptr) { return -1; };
-	Card* cardFound = otherPlayer.playerHand.find (&cardToFind);
-	if (cardFound == nullptr) { return 0; }
+bool Player::askForCard(Player& otherPlayer, Card& aCard) {
+	Card* cardFound = otherPlayer.playerHand.find (&aCard);
+	if (cardFound == nullptr) { return false; }
 	playerHand.insert (cardFound);
 	otherPlayer.playerHand.remove (cardFound);
-	return 1;
+	return true;
 }
 
 void Player::setName (std::string name) { this->name = name; }
