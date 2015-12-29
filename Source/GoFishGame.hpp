@@ -14,6 +14,7 @@ private:
 	void displayPlayers ( ) const;
 	void initPlayers ( );
 	void initPlayerHands ( );
+	void startTurn (Player& currentPlayer, int index, bool isDeckEmpty);
 	static const int startingHand;
 	Deck theDeck;
 	static const int defaultNumOfPlayers;

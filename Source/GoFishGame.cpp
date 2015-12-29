@@ -39,23 +39,14 @@ void GoFishGame::play( ) {
 	theDeck.shuffle ( );
 	initPlayers ( );
 	while (theDeck.getCount ( ) != 0) {
-		for (int playerIndex = 0; playerIndex < numOfPlayers; ++playerIndex) {
-			system("cls");
-			cout << thePlayers[playerIndex];
-			displayOtherPlayers(thePlayers, numOfPlayers, playerIndex);
-			cout << "Who would you like to take a card from?\n";
-			cout << "Please choose a player: ";
-			int playerChosen = choosePlayer (thePlayers, numOfPlayers, playerIndex);
-			cout << "You chose player #" << playerChosen + 1 
-				<< ": " + thePlayers[playerChosen].getName() + "\n"
-				<< "What card would you like to take?\n";
-			Card aCard = chooseCard ( );
-			cout << "You chose " << aCard << "\n";
-			system ("pause");
+		for (int i = 0; i < numOfPlayers; ++i) {
+			startTurn (thePlayers[i], i, false);
 		}
 	}
 	while (! arePlayerHandsEmpty(thePlayers, numOfPlayers)) {
-		
+		for (int i = 0; i < numOfPlayers; ++i) {
+			startTurn (thePlayers[i], i, true);
+		}
 	}
 	*/
 }
@@ -84,6 +75,35 @@ void GoFishGame::initPlayerHands ( ) {
 	}
 }
 
+void GoFishGame::startTurn(Player& currentPlayer, int indexOfPlayer, bool isDeckEmpty) {
+	bool cardFished = false;
+	do {
+		system ("cls");
+		cout << "----------------------------------\n";
+		cout << "Player #" << indexOfPlayer + 1 << "'s turn:\n"
+			<< currentPlayer;
+		cout << "----------------------------------\n";
+		GoFishGameUtils::displayOtherPlayers (thePlayers, numOfPlayers, indexOfPlayer);
+		cout << "Who would you like to take a card from? \n";
+		int playerChosen = GoFishGameUtils::choosePlayer (thePlayers, numOfPlayers, indexOfPlayer);
+		Card aCard = GoFishGameUtils::chooseCard ( );
+		if(currentPlayer.askForCard(thePlayers[playerChosen], aCard)) {
+			cout << "You took a " << aCard << " from "
+				<< thePlayers[playerChosen].getName() << "\n";
+			cardFished = true;
+		} else if(! isDeckEmpty) {
+			cout << "************\n"
+				<< "  Go Fish!\n"
+				<< "************\n";
+			currentPlayer.addCard (theDeck.deal ( ));
+			cardFished = false;
+		} else {
+			cardFished = false;
+		}
+		system ("pause");
+	} while (cardFished);
+
+}
 
 namespace GoFishGameUtils {
 	bool arePlayerHandsEmpty (const Player* const thePlayers, int size) {
