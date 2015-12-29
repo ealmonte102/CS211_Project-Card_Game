@@ -53,6 +53,11 @@ int Card::compareByValue (const Card& other) const {
 bool Card::operator==(const Card& rhs) const {
 	return rank == rhs.rank && suit == rhs.suit;
 }
+
+bool Card::operator!=(const Card& rhs) const {
+	return !operator==(rhs);
+}
+
 bool Card::operator<(const Card& rhs) const {
 	if (suit > rhs.suit) { return false; }
 	return rank < rhs.rank;
@@ -116,7 +121,7 @@ void Card::createCardName ( ) {
 	cardName += " ";
 	switch (suit) {
 		case CLUB:
-			cardName += '\6';
+			cardName += '\5';
 			break;
 		case DIAMOND:
 			cardName += '\4';
@@ -125,7 +130,7 @@ void Card::createCardName ( ) {
 			cardName += '\3';
 			break;
 		case SPADE:
-			cardName += '\5';
+			cardName += '\6';
 			break;
 		default:
 			cardName = "?";
