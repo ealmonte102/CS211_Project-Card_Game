@@ -69,7 +69,18 @@ vector<int> GoFishGame::getWinners( ) const {
 	}
 	return winners;
 }
-//1 3 3 9 2 19
+
+void GoFishGame::updateEmptyHands( ) {
+	int cardsInDeck = theDeck.getCount ( );
+	for (int i = 0; i < numOfPlayers; ++i) {
+		if(thePlayers[i].handIsEmpty()) {
+			for (int j = 0; j < 5 && cardsInDeck != 0; ++j, cardsInDeck--) {
+				thePlayers[i].addCard (theDeck.deal ( ));
+			}
+		}
+	}
+}
+
 void GoFishGame::displayPlayers( ) const {
 	for (int i = 0; i < numOfPlayers; ++i) {
 		cout << thePlayers[i] << "\n";
@@ -121,7 +132,8 @@ void GoFishGame::startTurn(Player& currentPlayer, int indexOfPlayer, bool isDeck
 		}
 		system ("pause");
 	} while (cardFished);
-
+	currentPlayer.evaluateHand ( );
+	updateEmptyHands ( );
 }
 
 namespace GoFishGameUtils {
