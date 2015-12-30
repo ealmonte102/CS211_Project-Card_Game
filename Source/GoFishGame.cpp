@@ -2,10 +2,12 @@
 // Created by Evan Almonte
 //
 #include "GoFishGame.hpp"
+#include <vector>
 
 using std::cout;
 using std::cin;
 using std::string;
+using std::vector;
 
 namespace GoFishGameUtils {
 	bool arePlayerHandsEmpty (const Player* const thePlayers, int size);
@@ -51,6 +53,23 @@ void GoFishGame::play( ) {
 	*/
 }
 
+vector<int> GoFishGame::getWinners( ) const {
+	int maxScore = 0;
+	for (int i = 0; i < numOfPlayers; ++i) {
+		int playerScore = thePlayers[i].getScore ( );
+		if(playerScore > maxScore) {
+			maxScore = playerScore;
+		}
+	}
+	vector<int> winners;
+	for (int i = 0; i < numOfPlayers; ++i) {
+		if(thePlayers[i].getScore() == maxScore) {
+			winners.push_back (i);
+		}
+	}
+	return winners;
+}
+//1 3 3 9 2 19
 void GoFishGame::displayPlayers( ) const {
 	for (int i = 0; i < numOfPlayers; ++i) {
 		cout << thePlayers[i] << "\n";

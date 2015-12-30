@@ -3,6 +3,7 @@
 
 #include "Deck.hpp"
 #include "Player.hpp"
+#include <vector>
 
 class GoFishGame {
 public:
@@ -11,15 +12,17 @@ public:
 	~GoFishGame ( );
 	void play ( );
 private:
+	static const int startingHand;
+	static const int defaultNumOfPlayers;
+	Deck theDeck;
+	Player* thePlayers;
+	int numOfPlayers;
+	
+	std::vector<int> getWinners ( ) const;
 	void displayPlayers ( ) const;
 	void initPlayers ( );
 	void initPlayerHands ( );
 	void startTurn (Player& currentPlayer, int index, bool isDeckEmpty);
-	static const int startingHand;
-	Deck theDeck;
-	static const int defaultNumOfPlayers;
-	int numOfPlayers;
-	Player* thePlayers;
 };
 
 #endif //GOFISHGAME_HPP
