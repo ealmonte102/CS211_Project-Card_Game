@@ -33,8 +33,8 @@ bool Player::askForCard(Player& otherPlayer, Card& aCard) {
 
 void Player::setName (std::string name) { this->name = name; }
 
-void Player::evaluateHand( ) {
-	score = playerHand.evaluate();
+void Player::evaluateHand ( ) {
+	score += playerHand.evaluate ( );
 }
 
 std::ostream& operator<<(std::ostream& output, const Player& aPlayer) {
