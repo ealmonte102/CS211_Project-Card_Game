@@ -64,10 +64,15 @@ LinkedList<Card*>::Node* Hand::findGroup( ) const {
 
 std::ostream& operator<<(std::ostream& output, const Hand& aHand) {
 	Hand::Node* current = aHand.head;
+	int numPrinted = 0;
 	while(current != nullptr) {
 		cout << *current->data;
 		if(current->next != nullptr) {
 			cout << " | ";
+			if ((numPrinted + 1) % 10 == 0) {
+				cout << "\n";
+			}
+			numPrinted++;
 		}
 		current = current->next;
 	}
