@@ -169,7 +169,6 @@ Type LinkedList<Type>::dataAtIndex(int index) const {
 
 template <class Type>
 Type LinkedList<Type>::find(Type data) const {
-	if (head == nullptr) { return nullptr; }
 	Node* current = head;
 	while(current != nullptr) {
 		if(*current->data == *data) {
@@ -182,6 +181,7 @@ Type LinkedList<Type>::find(Type data) const {
 
 template <class Type>
 void LinkedList<Type>::insert(Type data) {
+	if (data == nullptr) { return; }
 	if (head == nullptr) {
 		head = new Node(data);
 		tail = head;

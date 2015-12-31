@@ -6,6 +6,7 @@
 
 template <>
 inline void LinkedList<Card*>::insert (Card* data) {
+	if (data == nullptr) { return; }
 	if (head == nullptr) {
 		head = new Node (data);
 		tail = head;
