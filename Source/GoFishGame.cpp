@@ -69,20 +69,21 @@ vector<int> GoFishGame::getWinners( ) const {
 }
 
 void GoFishGame::displayWinners( ) const {
+	system ("cls");
 	vector<int> winners = getWinners();
 	if(winners.size() > 1) {
-		cout << "************\n"
-			<< "	Tie!\n"
-			<< "************\n";
+		cout << "*********************************************\n"
+			<<  "                   Tie!\n"
+			<<  "*********************************************\n";
 	} else {
-		cout << "***********\n"
-			<< "	Winner!\n"
-			<< "***********\n";
+		cout << "*********************************************\n"
+			<<  "                   Winner!\n"
+			<<  "*********************************************\n";
 	}
+	cout << "Final Score: " << thePlayers[winners[0]].getScore ( ) << "\n";
 	for (int i = 0; i < winners.size(); ++i) {
-		cout << "Congratulations Player #" << winners[i]
-			<< "\t" << thePlayers[winners[i]].getName ( ) << " "
-			<< "| Score: " << thePlayers[winners[i]].getScore ( ) << "\n";
+		cout << "Congratulations Player #" << winners[i] + 1
+			<< ": " << thePlayers[winners[i]].getName ( ) << "\n";
 	}
 }
 
