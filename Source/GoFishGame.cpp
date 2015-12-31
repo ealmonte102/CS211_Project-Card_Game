@@ -117,8 +117,8 @@ void GoFishGame::initPlayers( ) const {
 		getline (cin, name);
 		thePlayers[i].setName (name);
 		cout << "Is the player a CPU(Y/N)? ";
-		char isCPU = true;
-		cin.get ( );
+		char isCPU = 'y';
+		cin.get (isCPU);
 		cin.ignore ( );
 		switch(isCPU) {
 			case 'Y':
