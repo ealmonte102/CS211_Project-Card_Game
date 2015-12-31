@@ -11,6 +11,9 @@ public:
 	int evaluate ( );
 
 	friend std::ostream& operator<<(std::ostream& output, const Hand& aHand);
+	
+	//Returns true if a card with the same rank is found.
+	bool findRank(Card& card) const;
 private:
 	// Removes a group of 4 cards from the hand.
 	void removeGroup (Node* node);

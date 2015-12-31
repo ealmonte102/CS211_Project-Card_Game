@@ -11,18 +11,29 @@ Hand::Hand ( ) : LinkedList<Card*> ( ) {}
 
 int Hand::evaluate( ) {
 	Node* foundGroup = findGroup ( );
-	if(size > 3 && foundGroup != nullptr) {
+	if(foundGroup != nullptr) {
 		removeGroup (foundGroup);
 		return 1 + evaluate ( );
 	}
 	return 0;
 }
 
-void Hand::removeGroup(Node* node) {
+bool Hand::findRank(Card& card) const {
+	Node* current = head;
+	while(current != nullptr) {
+		if(current->data->compareByRank(card) == 0) {
+			return true;
+		}
+		current = current->next;
+	}
+	return false;
+}
+
+void Hand::removeGroup (Node* node) {
 	if (node == nullptr) { return; }
 	Node* previous = nullptr;
 	Node* current = head;
-	while(current != node) {
+	while (current != node) {
 		previous = current;
 		current = current->next;
 	}
@@ -33,10 +44,12 @@ void Hand::removeGroup(Node* node) {
 		--size;
 		current = afterDelete;
 	}
-	if(previous == nullptr) {
+	if (previous == nullptr) {
 		head = afterDelete;
 	} else if (previous == head) {
 		head->next = afterDelete;
+	} else {
+		previous->next = afterDelete;
 	}
 	if(afterDelete == nullptr) {
 		tail = previous;
