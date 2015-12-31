@@ -87,7 +87,7 @@ void GoFishGame::displayWinners( ) const {
 	}
 }
 
-void GoFishGame::updateEmptyHands( ) {
+void GoFishGame::updateEmptyHands( ) const {
 	int cardsInDeck = theDeck.getCount ( );
 	for (int i = 0; i < numOfPlayers; ++i) {
 		if(thePlayers[i].handIsEmpty()) {
@@ -104,7 +104,7 @@ void GoFishGame::displayPlayers( ) const {
 	}
 }
 
-void GoFishGame::initPlayers( ) {
+void GoFishGame::initPlayers( ) const {
 	for (int i = 0; i < numOfPlayers; ++i) {
 		cout << "Please enter a name for player " << i + 1 << ": ";
 		string name;
@@ -114,7 +114,7 @@ void GoFishGame::initPlayers( ) {
 	initPlayerHands ( );
 }
 
-void GoFishGame::initPlayerHands ( ) {
+void GoFishGame::initPlayerHands ( ) const {
 	for (int i = 0; i < numOfPlayers; ++i) {
 		for (int j = 0; j < startingHand; ++j) {
 			thePlayers[i].addCard (theDeck.deal ( ));
@@ -122,8 +122,8 @@ void GoFishGame::initPlayerHands ( ) {
 	}
 }
 
-void GoFishGame::startTurn(Player& currentPlayer, int indexOfPlayer, bool isDeckEmpty) {
-	bool cardFished = false;
+void GoFishGame::startTurn(Player& currentPlayer, int indexOfPlayer, bool isDeckEmpty) const {
+	bool cardFished;
 	do {
 		system ("cls");
 		cout << "---------------------------------------------\n";

@@ -20,11 +20,11 @@ private:
 	
 	std::vector<int> getWinners ( ) const;
 	void displayWinners ( ) const;
-	void updateEmptyHands ( );
+	void updateEmptyHands ( ) const;
 	void displayPlayers ( ) const;
 	void initPlayers ( );
-	void initPlayerHands ( );
-	void startTurn (Player& currentPlayer, int index, bool isDeckEmpty);
+	void initPlayerHands ( ) const;
+	void startTurn (Player& currentPlayer, int index, bool isDeckEmpty) const;
 };
 
 #endif //GOFISHGAME_HPP
