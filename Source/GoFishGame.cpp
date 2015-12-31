@@ -126,10 +126,10 @@ void GoFishGame::startTurn(Player& currentPlayer, int indexOfPlayer, bool isDeck
 	bool cardFished = false;
 	do {
 		system ("cls");
-		cout << "----------------------------------\n";
+		cout << "---------------------------------------------\n";
 		cout << "Player #" << indexOfPlayer + 1 << "'s turn:\n"
 			<< currentPlayer;
-		cout << "----------------------------------\n";
+		cout << "---------------------------------------------\n";
 		GoFishGameUtils::displayOtherPlayers (thePlayers, numOfPlayers, indexOfPlayer);
 		cout << "Who would you like to take a card from? \n";
 		int playerChosen = GoFishGameUtils::choosePlayer (thePlayers, numOfPlayers, indexOfPlayer);
@@ -140,9 +140,9 @@ void GoFishGame::startTurn(Player& currentPlayer, int indexOfPlayer, bool isDeck
 				<< thePlayers[playerChosen].getName() << "\n";
 			cardFished = true;
 		} else if(! isDeckEmpty) {
-			cout << "************\n"
-				<< "  Go Fish!\n"
-				<< "************\n";
+			cout << "*********************************************\n"
+				<<  "                   Go Fish!                  \n"
+				<<  "*********************************************\n";
 			currentPlayer.addCard (theDeck.deal ( ));
 			cardFished = false;
 		} else {
