@@ -189,40 +189,40 @@ namespace GoFishGameUtils {
 
 	Card chooseCard( ) {
 		int suitChosen = 0, rankChosen = 0;
-		cout << "*************************\n";
-		cout << "   Please select a suit  \n";
-		cout << "*************************\n";
-			cout << "1) Clubs\n"
-			<< "2) Diamonds\n"
-			<< "3) Hearts\n"
-			<< "4) Spades\n";
-		while(! (cin >> suitChosen) || suitChosen < 1 || suitChosen > 4) {
+		cout << "*********************************************\n";
+		cout << "             Please select a rank\n";
+		cout << "*********************************************\n";
+		cout << "Please select a rank:\n";
+		cout <<"2) Two\n"
+			<< "3) Three\n"
+			<< "4) Four\n"
+			<< "5) Five\n"
+			<< "6) Six\n"
+			<< "7) Seven\n"
+			<< "8) Eight\n"
+			<< "9) Nine\n"
+			<< "10) Ten\n"
+			<< "11) Jack\n"
+			<< "12) Queen\n"
+			<< "13) King\n"
+			<< "14) Ace\n";
+		while (!(cin >> rankChosen) || rankChosen < Card::TWO + 2 || rankChosen > Card::ACE + 2) {
 			cin.clear ( );
 			cin.ignore (10000, '\n');
 		}
-		cout << "*************************\n";
-		cout << "   Please select a rank  \n";
-		cout << "*************************\n";
-		cout << "Please select a rank:\n";
-		cout << "1) Two\n"
-			<< "2)  Three\n"
-			<< "3)  Four\n"
-			<< "4)  Five\n"
-			<< "5)  Six\n"
-			<< "6)  Seven\n"
-			<< "7)  Eight\n"
-			<< "8)  Nine\n"
-			<< "9) Ten\n"
-			<< "10) Jack\n"
-			<< "11) Queen\n"
-			<< "12) King\n"
-			<< "13) Ace\n";
-		while (!(cin >> rankChosen) || rankChosen < 1 || rankChosen > 13) {
+		cout << "*********************************************\n";
+		cout << "             Please select a suit\n";
+		cout << "*********************************************\n";
+		cout <<"1) Clubs\n"
+			<< "2) Diamonds\n"
+			<< "3) Hearts\n"
+			<< "4) Spades\n";
+		while (!(cin >> suitChosen) || suitChosen < 1 || suitChosen > 4) {
 			cin.clear ( );
 			cin.ignore (10000, '\n');
 		}
 		Card::Suits suitAsEnum = static_cast<Card::Suits>(suitChosen - 1);
-		Card::Ranks rankAsEnum = static_cast<Card::Ranks>(rankChosen - 1);
+		Card::Ranks rankAsEnum = static_cast<Card::Ranks>(rankChosen - 2);
 		return Card (suitAsEnum, rankAsEnum);
 	}
 }
