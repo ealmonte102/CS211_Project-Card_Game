@@ -2,6 +2,7 @@
 // Created by Evan Almonte
 //
 #include "GoFishGame.hpp"
+#include <cstdlib>
 #include <vector>
 
 using std::cout;
@@ -10,6 +11,8 @@ using std::string;
 using std::vector;
 
 namespace GoFishGameUtils {
+	int chooseRandomPlayer (int numOfPlayers);
+	Card chooseRandomCard ( );
 	bool arePlayerHandsEmpty (const Player* const thePlayers, int size);
 	void displayOtherPlayers (const Player* const thePlayers, int size, int currentPlayer);
 	int choosePlayer (const Player* const thePlayers, int size, int currentIndex);
@@ -126,38 +129,66 @@ void GoFishGame::initPlayerHands ( ) const {
 }
 
 void GoFishGame::startTurn(Player& currentPlayer, int indexOfPlayer, bool isDeckEmpty) const {
-	bool cardFished;
-	do {
-		system ("cls");
-		cout << "---------------------------------------------\n";
-		cout << "Player #" << indexOfPlayer + 1 << "'s turn:\n"
-			<< currentPlayer;
-		cout << "---------------------------------------------\n";
-		GoFishGameUtils::displayOtherPlayers (thePlayers, numOfPlayers, indexOfPlayer);
-		cout << "Who would you like to take a card from? \n";
-		int playerChosen = GoFishGameUtils::choosePlayer (thePlayers, numOfPlayers, indexOfPlayer);
-		cout << "You chose " << thePlayers[playerChosen].getName ( ) << "\n";
-		Card aCard = GoFishGameUtils::chooseCard ( );
-		if(currentPlayer.askForCard(thePlayers[playerChosen], aCard)) {
-			cout << "You took a " << aCard << " from "
-				<< thePlayers[playerChosen].getName() << "\n";
-			cardFished = true;
-		} else if(! isDeckEmpty) {
-			cout << "*********************************************\n"
-				<<  "                   Go Fish!                  \n"
-				<<  "*********************************************\n";
-			currentPlayer.addCard (theDeck.deal ( ));
-			cardFished = false;
-		} else {
-			cardFished = false;
-		}
-		system ("pause");
-	} while (cardFished);
+	bool cardFished = false;
+	if (currentPlayer.isHuman ( )) {
+		do {
+			system ("cls");
+			cout << "---------------------------------------------\n";
+			cout << "Player #" << indexOfPlayer + 1 << "'s turn:\n"
+				<< currentPlayer;
+			cout << "---------------------------------------------\n";
+			GoFishGameUtils::displayOtherPlayers (thePlayers, numOfPlayers, indexOfPlayer);
+			cout << "Who would you like to take a card from? \n";
+			int playerChosen = GoFishGameUtils::choosePlayer (thePlayers, numOfPlayers, indexOfPlayer);
+			cout << "You chose " << thePlayers[playerChosen].getName ( ) << "\n";
+			Card aCard = GoFishGameUtils::chooseCard ( );
+			if (currentPlayer.askForCard (thePlayers[playerChosen], aCard)) {
+				cout << "You took a " << aCard << " from "
+					<< thePlayers[playerChosen].getName ( ) << "\n";
+				cardFished = true;
+			} else if (!isDeckEmpty) {
+				cout << "*********************************************\n"
+					<< "                   Go Fish!                  \n"
+					<< "*********************************************\n";
+				currentPlayer.addCard (theDeck.deal ( ));
+				cardFished = false;
+			}
+			system ("pause");
+		} while (cardFished);
+	} else {
+		int playerChosen;
+		Card cardChosen;
+		do {
+			playerChosen = GoFishGameUtils::chooseRandomPlayer(numOfPlayers);
+			cardChosen = GoFishGameUtils::chooseRandomCard ();
+			if(currentPlayer.askForCard(thePlayers[playerChosen], cardChosen)) {
+				cout << "The CPU " << currentPlayer.getName ( ) << " took a card from "
+					<< "Player # " << playerChosen + 1 << thePlayers[playerChosen].getName ( ) << "\n";
+				cardFished = true;
+			} else if (!isDeckEmpty) {
+				cout << "*********************************************\n"
+					<< "                   Go Fish!                  \n"
+					<< "*********************************************\n";
+				currentPlayer.addCard (theDeck.deal ( ));
+			}
+			system ("pause");
+		} while (cardFished);
+	}
 	currentPlayer.evaluateHand ( );
 	updateEmptyHands ( );
 }
 
 namespace GoFishGameUtils {
+	int chooseRandomPlayer(int numOfPlayers) {
+		return rand ( ) % numOfPlayers;
+	}
+
+	Card chooseRandomCard( ) {
+		Card::Suits randSuit = static_cast<Card::Suits>(rand() % 4);
+		Card::Ranks randRank = static_cast<Card::Ranks>(rand ( ) % 13);
+		return Card (randSuit, randRank);
+	}
+
 	bool arePlayerHandsEmpty (const Player* const thePlayers, int size) {
 		for (int i = 0; i < size; ++i) {
 			if(! thePlayers[i].handIsEmpty()) {
