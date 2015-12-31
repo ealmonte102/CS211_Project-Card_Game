@@ -17,6 +17,13 @@ std::string Player::getName ( ) const { return name; }
 
 bool Player::isHuman ( ) const { return !isCPU; }
 
+bool Player::isRankInHand(Card& aCard) const {
+	if (playerHand.findRank (aCard)) {
+		return true;
+	}
+	return false;
+}
+
 bool Player::handIsEmpty( ) const {
 	return playerHand.getSize ( ) == 0;
 }
@@ -32,6 +39,8 @@ bool Player::askForCard(Player& otherPlayer, Card& aCard) {
 }
 
 void Player::setName (std::string name) { this->name = name; }
+
+void Player::setCPUStatus (bool isCPU) { this->isCPU = isCPU; }
 
 void Player::evaluateHand ( ) {
 	score += playerHand.evaluate ( );

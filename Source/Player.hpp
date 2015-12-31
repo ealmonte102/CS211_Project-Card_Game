@@ -15,6 +15,7 @@ public:
 	std::string getName ( ) const;
 	// Returns false if isCPU is true, otherwise returns true.
 	bool isHuman ( ) const;
+	bool isRankInHand(Card& aCard) const;
 	// Inserts a card into a players hand in ascending order.
 	bool handIsEmpty ( ) const;
 	void addCard (Card* cardToAdd);
@@ -23,6 +24,7 @@ public:
 	bool askForCard (Player& otherPlayer, Card& aCard);
 	// Sets the player's name to the passed parameter.
 	void setName (std::string name);
+	void setCPUStatus(bool isCPU);
 	// Evaluates the players hand adding 1 point to the score per 4 similar cards.
 	// Removes the group of cards found from the players hand.
 	void evaluateHand ( );
