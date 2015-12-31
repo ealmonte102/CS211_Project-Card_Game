@@ -214,7 +214,7 @@ bool LinkedList<Type>::remove(Type data) {
 	}
 	Node* previous = nullptr;
 	Node* current = head;
-	while (current != nullptr && data != current->data) {
+	while (current != nullptr && *data != *current->data) {
 		previous = current;
 		current = current->next;
 	}
@@ -228,7 +228,6 @@ bool LinkedList<Type>::remove(Type data) {
 	--size;
 	return true;
 }
-
 template <class Type>
 LinkedList<Type>& LinkedList<Type>::operator=(const LinkedList& rhs) {
 	if (this != &rhs) {
