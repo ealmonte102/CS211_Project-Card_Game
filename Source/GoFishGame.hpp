@@ -10,7 +10,7 @@ public:
 	GoFishGame ( );
 	GoFishGame (int numOfPlayers);
 	~GoFishGame ( );
-	void play ( );
+	void play ( ) const;
 private:
 	static const int startingHand;
 	static const int defaultNumOfPlayers;
@@ -22,7 +22,7 @@ private:
 	void displayWinners ( ) const;
 	void updateEmptyHands ( ) const;
 	void displayPlayers ( ) const;
-	void initPlayers ( );
+	void initPlayers ( ) const;
 	void initPlayerHands ( ) const;
 	void startTurn (Player& currentPlayer, int index, bool isDeckEmpty) const;
 };

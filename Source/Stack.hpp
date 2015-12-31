@@ -63,8 +63,10 @@ Stack<T>::Stack(const Stack& rhs): capacity (rhs.capacity), stack (nullptr) {
 
 template <class T>
 Stack<T>::~Stack( ) {
-	for (int i = 0; i < size; ++i) {
-		delete stack[i];
+	for (int i = 0; i < capacity; ++i) {
+		if (stack[i] != nullptr) {
+			delete stack[i];
+		}
 	}
 	delete[] stack;
 }

@@ -20,8 +20,8 @@ const int GoFishGame::defaultNumOfPlayers = 2;
 
 const int GoFishGame::startingHand = 5;
 
-GoFishGame::GoFishGame( ) : theDeck(Deck(52)), numOfPlayers(defaultNumOfPlayers),
-							thePlayers(new Player[defaultNumOfPlayers]) { }
+GoFishGame::GoFishGame( ) : theDeck(Deck(52)), thePlayers(new Player[defaultNumOfPlayers]),
+							numOfPlayers(defaultNumOfPlayers) { }
 
 GoFishGame::GoFishGame(int numOfPlayers) : theDeck(Deck(52)), numOfPlayers(numOfPlayers) {
 	if(numOfPlayers < 2) {
@@ -34,7 +34,7 @@ GoFishGame::~GoFishGame( ) {
 	delete[] thePlayers;
 }
 
-void GoFishGame::play( ) {
+void GoFishGame::play( ) const {
 	using namespace GoFishGameUtils;
 	theDeck.shuffle ( );
 	initPlayers ( );
@@ -47,6 +47,9 @@ void GoFishGame::play( ) {
 	}
 	while (! arePlayerHandsEmpty(thePlayers, numOfPlayers)) {
 		startTurn (thePlayers[playerIndex], playerIndex, true);
+		if (++playerIndex == numOfPlayers) {
+			playerIndex = 0;
+		}
 	}
 	displayWinners ( );
 }
