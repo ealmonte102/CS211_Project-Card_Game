@@ -186,7 +186,7 @@ void GoFishGame::startTurn(Player& currentPlayer, int indexOfPlayer, bool isDeck
 			cardChosen = GoFishGameUtils::chooseRandomCard (currentPlayer);
 			cout << "The CPU " << currentPlayer.getName ( )
 				<< " tries to take a " << cardChosen << " from "
-				<< "Player # " << playerChosen + 1 << " "
+				<< "Player #" << playerChosen + 1 << " "
 				<< thePlayers[playerChosen].getName ( ) << "\n";
 			if(currentPlayer.askForCard(thePlayers[playerChosen], cardChosen)) {
 				cardFished = true;
