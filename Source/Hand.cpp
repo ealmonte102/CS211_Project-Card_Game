@@ -20,7 +20,7 @@ int Hand::evaluate( ) {
 
 void Hand::removeGroup(Node* node) {
 	if (node == nullptr) { return; }
-	Node* previous = head;
+	Node* previous = nullptr;
 	Node* current = head;
 	while(current != node) {
 		previous = current;
@@ -33,10 +33,13 @@ void Hand::removeGroup(Node* node) {
 		--size;
 		current = afterDelete;
 	}
-	if(previous != head) {
-		previous->next = afterDelete;
-	} else {
+	if(previous == nullptr) {
 		head = afterDelete;
+	} else if (previous == head) {
+		head->next = afterDelete;
+	}
+	if(afterDelete == nullptr) {
+		tail = previous;
 	}
 }
 
