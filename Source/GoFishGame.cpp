@@ -36,21 +36,19 @@ GoFishGame::~GoFishGame( ) {
 
 void GoFishGame::play( ) {
 	using namespace GoFishGameUtils;
-	//Commented out, used for testing purposes.
-	/*
 	theDeck.shuffle ( );
 	initPlayers ( );
+	int playerIndex = 0;
 	while (theDeck.getCount ( ) != 0) {
-		for (int i = 0; i < numOfPlayers; ++i) {
-			startTurn (thePlayers[i], i, false);
+		startTurn (thePlayers[playerIndex], playerIndex, false);
+		if(++playerIndex == numOfPlayers) {
+			playerIndex = 0;
 		}
 	}
 	while (! arePlayerHandsEmpty(thePlayers, numOfPlayers)) {
-		for (int i = 0; i < numOfPlayers; ++i) {
-			startTurn (thePlayers[i], i, true);
-		}
+		startTurn (thePlayers[playerIndex], playerIndex, true);
 	}
-	*/
+	displayWinners ( );
 }
 
 vector<int> GoFishGame::getWinners( ) const {
@@ -68,6 +66,24 @@ vector<int> GoFishGame::getWinners( ) const {
 		}
 	}
 	return winners;
+}
+
+void GoFishGame::displayWinners( ) const {
+	vector<int> winners = getWinners();
+	if(winners.size() > 1) {
+		cout << "************\n"
+			<< "	Tie!\n"
+			<< "************\n";
+	} else {
+		cout << "***********\n"
+			<< "	Winner!\n"
+			<< "***********\n";
+	}
+	for (int i = 0; i < winners.size(); ++i) {
+		cout << "Congratulations Player #" << winners[i]
+			<< "\t" << thePlayers[winners[i]].getName ( ) << " "
+			<< "| Score: " << thePlayers[winners[i]].getScore ( ) << "\n";
+	}
 }
 
 void GoFishGame::updateEmptyHands( ) {
@@ -98,9 +114,9 @@ void GoFishGame::initPlayers( ) {
 }
 
 void GoFishGame::initPlayerHands ( ) {
-	for (int i = 0; i < startingHand; ++i) {
-		for (int j = 0; j < numOfPlayers; ++j) {
-			thePlayers[j].addCard (theDeck.deal ( ));
+	for (int i = 0; i < numOfPlayers; ++i) {
+		for (int j = 0; j < startingHand; ++j) {
+			thePlayers[i].addCard (theDeck.deal ( ));
 		}
 	}
 }
@@ -116,6 +132,7 @@ void GoFishGame::startTurn(Player& currentPlayer, int indexOfPlayer, bool isDeck
 		GoFishGameUtils::displayOtherPlayers (thePlayers, numOfPlayers, indexOfPlayer);
 		cout << "Who would you like to take a card from? \n";
 		int playerChosen = GoFishGameUtils::choosePlayer (thePlayers, numOfPlayers, indexOfPlayer);
+		cout << "You chose " << thePlayers[playerChosen].getName ( ) << "\n";
 		Card aCard = GoFishGameUtils::chooseCard ( );
 		if(currentPlayer.askForCard(thePlayers[playerChosen], aCard)) {
 			cout << "You took a " << aCard << " from "
@@ -150,7 +167,7 @@ namespace GoFishGameUtils {
 		int count = 0;
 		for (int i = 0; i < size; ++i) {
 			if (i != currentPlayer) {
-				cout << ++count << ") " + thePlayers[i].getName ( ) + "\n";
+				cout << ++count << ") " << thePlayers[i].getName() << "\n";
 			}
 		}
 	}
@@ -161,10 +178,12 @@ namespace GoFishGameUtils {
 			while (! (cin >> chosen)) {
 				cin.clear ( );
 				cin.ignore (10000, '\n');
-			}
-			if (chosen - 1 == currentIndex) { return chosen; }
+			}	
 		} while (chosen < 1 || chosen > size - 1);
-		return chosen - 1;
+		if(chosen <= currentIndex) {
+			return chosen - 1;
+		}
+		return chosen;
 	}
 
 	Card chooseCard( ) {

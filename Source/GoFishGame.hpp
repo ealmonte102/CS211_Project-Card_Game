@@ -19,6 +19,7 @@ private:
 	int numOfPlayers;
 	
 	std::vector<int> getWinners ( ) const;
+	void displayWinners ( ) const;
 	void updateEmptyHands ( );
 	void displayPlayers ( ) const;
 	void initPlayers ( );
