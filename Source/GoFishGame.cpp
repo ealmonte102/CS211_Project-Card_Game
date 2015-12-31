@@ -11,8 +11,8 @@ using std::string;
 using std::vector;
 
 namespace GoFishGameUtils {
-	int chooseRandomPlayer (int numOfPlayers);
-	Card chooseRandomCard ( );
+	int chooseRandomPlayer (int numOfPlayers, int currentIndex);
+	Card chooseRandomCard (const Player& aPlayer);
 	bool arePlayerHandsEmpty (const Player* const thePlayers, int size);
 	void displayOtherPlayers (const Player* const thePlayers, int size, int currentPlayer);
 	int choosePlayer (const Player* const thePlayers, int size, int currentIndex);
@@ -115,7 +115,23 @@ void GoFishGame::initPlayers( ) const {
 		cout << "Please enter a name for player " << i + 1 << ": ";
 		string name;
 		getline (cin, name);
-	thePlayers[i].setName (name);
+		thePlayers[i].setName (name);
+		cout << "Is the player a CPU(Y/N)? ";
+		char isCPU = true;
+		cin.get ( );
+		cin.ignore ( );
+		switch(isCPU) {
+			case 'Y':
+			case 'y':
+				break;
+			case 'N':
+			case 'n':
+				isCPU = false;
+				break;
+			default:
+				break;
+		}
+		thePlayers[i].setCPUStatus (isCPU);
 	}
 	initPlayerHands ( );
 }
@@ -152,6 +168,8 @@ void GoFishGame::startTurn(Player& currentPlayer, int indexOfPlayer, bool isDeck
 					<< "*********************************************\n";
 				currentPlayer.addCard (theDeck.deal ( ));
 				cardFished = false;
+			}  else {
+				cardFished = false;
 			}
 			system ("pause");
 		} while (cardFished);
@@ -159,17 +177,28 @@ void GoFishGame::startTurn(Player& currentPlayer, int indexOfPlayer, bool isDeck
 		int playerChosen;
 		Card cardChosen;
 		do {
-			playerChosen = GoFishGameUtils::chooseRandomPlayer(numOfPlayers);
-			cardChosen = GoFishGameUtils::chooseRandomCard ();
+			system ("cls");
+			cout << "---------------------------------------------\n";
+			cout << "Player #" << indexOfPlayer + 1 << "'s turn:\n"
+				<< currentPlayer;
+			cout << "---------------------------------------------\n";
+			playerChosen = GoFishGameUtils::chooseRandomPlayer(numOfPlayers, indexOfPlayer);
+			cardChosen = GoFishGameUtils::chooseRandomCard (currentPlayer);
+			cout << "The CPU " << currentPlayer.getName ( )
+				<< " tries to take a " << cardChosen << " from "
+				<< "Player # " << playerChosen + 1 << " "
+				<< thePlayers[playerChosen].getName ( ) << "\n";
 			if(currentPlayer.askForCard(thePlayers[playerChosen], cardChosen)) {
-				cout << "The CPU " << currentPlayer.getName ( ) << " took a card from "
-					<< "Player # " << playerChosen + 1 << thePlayers[playerChosen].getName ( ) << "\n";
 				cardFished = true;
+				cout << "The CPU is succesful.\n";
 			} else if (!isDeckEmpty) {
+				cardFished = false;
 				cout << "*********************************************\n"
 					<< "                   Go Fish!                  \n"
 					<< "*********************************************\n";
 				currentPlayer.addCard (theDeck.deal ( ));
+			} else {
+				cardFished = false;
 			}
 			system ("pause");
 		} while (cardFished);
@@ -179,14 +208,24 @@ void GoFishGame::startTurn(Player& currentPlayer, int indexOfPlayer, bool isDeck
 }
 
 namespace GoFishGameUtils {
-	int chooseRandomPlayer(int numOfPlayers) {
-		return rand ( ) % numOfPlayers;
+	int chooseRandomPlayer(int numOfPlayers, int currentIndex) {
+		int randIndex;
+		do {
+			randIndex = rand ( ) % numOfPlayers;
+		} while (randIndex == currentIndex);
+		return randIndex;
 	}
 
-	Card chooseRandomCard( ) {
-		Card::Suits randSuit = static_cast<Card::Suits>(rand() % 4);
-		Card::Ranks randRank = static_cast<Card::Ranks>(rand ( ) % 13);
-		return Card (randSuit, randRank);
+	Card chooseRandomCard(const Player& aPlayer) {
+		Card randomCard;
+		Card::Suits randSuit;
+		Card::Ranks randRank;
+		do {
+			randSuit = static_cast<Card::Suits>(rand ( ) % 4);
+			randRank = static_cast<Card::Ranks>(rand ( ) % 13);
+			randomCard = Card (randSuit, randRank);
+		} while (! aPlayer.isRankInHand (randomCard));
+		return randomCard;
 	}
 
 	bool arePlayerHandsEmpty (const Player* const thePlayers, int size) {
