@@ -10,5 +10,6 @@ int main ( ) {
 	srand (static_cast<unsigned int>(time (nullptr)));
 	GoFishGame* aGame = new GoFishGame(2);
 	aGame->play ( );
+	delete aGame;
 	return 0;
 }
